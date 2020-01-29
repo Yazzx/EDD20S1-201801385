@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/yasmi/OneDrive/Documents/GitHub/EDD20S1-201801385/Tareas/T1/Tarea1/main.cpp
+iostream
+-
+conio.h
+-
+
