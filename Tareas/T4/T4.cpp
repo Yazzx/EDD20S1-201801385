@@ -9,23 +9,26 @@ struct cajita{
     char dato;
     cajita *a_siguiente;
     cajita *a_anterior;
-}*a_primera, *a_ultima, *a_actual;
+}*a_primera, *a_ultima, *a_actual, *a_aux;
 
 // 1
 
 void insertarInicio(char caracter){
 
-    cajita *nueva = new cajita(); // reservar memoria
-    nueva->dato = caracter; // asignacion de informacion
 
-    if(!a_primera){
 
-        nueva->a_siguiente = NULL; // indica que está al final
-        nueva->a_anterior = NULL; // indica que esta al inicio
+    if(a_primera == NULL){
 
-        a_primera = nueva; // se le asigna como primero
-        a_ultima = nueva; // se le asigna como último
+        a_primera = new(cajita); // reservar memoria
+
+        a_primera->a_siguiente = NULL;
+        a_primera->dato = caracter;
+
+
     } else {
+
+        cajita *nueva = new cajita(); // reservar memoria
+        nueva->dato = caracter; // asignacion de informacion
 
         nueva ->a_siguiente = a_primera;
         a_primera->a_anterior = nueva;
@@ -66,13 +69,22 @@ void mostrarLista(){
 
 void eliminarFinal(){
 
-    a_ultima->a_anterior = a_actual;
+    //a_actual = new cajita;
+    //a_aux = new cajita;
 
-    a_actual->a_siguiente = NULL;
-    free(a_ultima);
-    // si algo da clavo es lo de arriba
+    a_actual = a_primera;
 
-    a_ultima = a_actual;
+    while(a_actual->a_siguiente != NULL){
+
+         a_aux= a_actual;
+        a_actual = a_actual->a_siguiente;
+
+    }
+
+    a_ultima = a_aux;
+    a_ultima->a_siguiente=NULL;
+    delete(a_actual);
+
 }
 
 int main() {
@@ -108,12 +120,13 @@ void OpcionesMenu(){
     switch (opcion){
         case 1:
             corriendo = true;
+            cout<<"El caracter de finalizacion es = '#'"<<endl;
             while (corriendo){
 
-                cout<<"Ingresa los caracteres que deseas agregar"<<endl;
+                cout<<"Ingresa un caracter"<<endl;
                 cin>> c;
 
-                if(c == 'e'){
+                if(c == '#'){
                     corriendo == false;
                     break;
                 } else{
@@ -128,6 +141,7 @@ void OpcionesMenu(){
             break;
         case 2:
             eliminarFinal();
+            mostrarLista();
             getch();
             OpcionesMenu();
             break;
@@ -140,7 +154,7 @@ void OpcionesMenu(){
             break;
         case 5:
             cout<<"Haz salido del programa :D"<<endl;
-            getch();
+            exit(0);
         default:
             cout<<"No puedes escoger esto :c"<<endl;
             getch();
