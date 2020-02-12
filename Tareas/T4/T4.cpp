@@ -13,6 +13,29 @@ struct cajita{
 
 // 1
 
+void buscar (string cadena){
+    //cout<< cadena[0];
+    char buscando = cadena[0];
+    int contador = 0;
+
+    if(!a_primera){
+        cout<< "la lista está vacía :C";
+        getch();
+    }
+    a_actual = a_primera;
+    a_aux = NULL;
+
+    while(a_actual->a_siguiente && a_actual->dato<buscando){
+        a_aux = a_actual;
+        a_actual = a_actual->a_siguiente;
+        contador++;
+    }
+
+    cout<<"Posicion: "<< contador << " - Elemento: " << a_actual->dato<<endl;
+
+
+}
+
 void insertarInicio(char caracter){
 
 
@@ -116,6 +139,7 @@ void OpcionesMenu(){
 
     char c;
     bool corriendo;
+    string busqueda;
 
     switch (opcion){
         case 1:
@@ -146,6 +170,13 @@ void OpcionesMenu(){
             OpcionesMenu();
             break;
         case 3:
+            cout<<"Escribe a lo que quieras referenciar: "<<endl;
+            cin>> busqueda;
+
+            buscar(busqueda);
+            getch();
+            OpcionesMenu();
+
             break;
         case 4:
             mostrarLista();
